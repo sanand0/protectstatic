@@ -1,5 +1,7 @@
 <?php
 
+#------ START OF CONFIGURATION -----------------------------------------------
+
 # The public URL of the _auth/ folder
 # This should be {the FULL .htaccess RewriteBase URL}/_auth/
 $AUTH_PATH = "http://example.com/path/to/directory/_auth/";
@@ -10,8 +12,18 @@ $USERS = array(
     'user2@gmail.com',
 );
 
+# If someone accesses /path/, what file should we serve?
+$DIRECTORY_INDEX = "index.html";
+
+#------ END OF CONFIGURATION -------------------------------------------------
+
+
 # Get the file path
 $path = "../" . $_REQUEST['file'];
+
+if (is_dir($path)) {
+    $path = "$path$DIRECTORY_INDEX";
+}
 
 # If the file is not found, print an error message.
 # You may want to redirect to a standard 404 page.
@@ -20,8 +32,10 @@ if (!is_file($path)) {
     die("<h1>File not found</h1>");
 }
 
-# Get its MIME type
-$mime = apache_lookup_uri($path)->content_type;
+# Get its MIME type. Yeah, I know it's mime_content_type is deprecated.
+# But FileInfo requires PECL (not univerally available)...
+# and apache_lookup_uri works only if PHP is an Apache module.
+$mime = mime_content_type($path);
 
 # By default, everything expires 1 week later
 $expires = 60*60*24*7;
