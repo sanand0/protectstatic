@@ -3,26 +3,27 @@ Protect Static Files
 Restricts static files to a specific people using Apache/PHP.
 
 I built this because I needed to protect some static files on a shared web host
-that offers Apache without mod-auth-openid.
+that offers Apache (without mod-auth-openid) and PHP.
 
 Installation
 ------------
-To restrict access a folder located at http://example.com/path:
+To restrict access a folder located at http://example.com/path/:
 
-- Copy `.htaccess` and `_auth/` into the folder
-- In .htaccess, change `RewriteBase` to `/path`
+- Copy `.htaccess` and `_auth/` under `/path`
+- In `.htaccess`, change `RewriteBase` to `/path`
 - In `_auth/authorize.php`, change `$AUTH_PATH` to `http://example.com/path/`
 - In `_auth/authorize.php`, add allowed email IDs to `$USERS`
 
 How it works
 ------------
 1. `.htaccess` redirects *all* requests to `_auth/authorize.php`.
-2. `_auth/authorize.php` uses [HybridAuth](http://hybridauth.sourceforge.net/)
-   to log the user in with their Google ID. (You can change this behaviour.)
+2. `_auth/authorize.php` logs the user in via their Google ID.
+    (This uses uses [HybridAuth](http://hybridauth.sourceforge.net/).
+    You can use Twitter, Facebook, OpenID, etc instead of Google.)
 3. If the user is in the `$USERS` array you set up, it reads & shows the file.
 
-This is tolerably efficient. On my laptop, raw files are served at 2,500/s.
-Reading via PHP brought it down to 1,700/s. When that's a worry, I'll be rich.
+This is tolerably efficient. On my laptop, static files are served at 2,500/s.
+With this module, it still managed 1,700/s.
 
 Alternatives
 ------------
