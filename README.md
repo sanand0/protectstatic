@@ -11,8 +11,8 @@ To restrict access a folder located at http://example.com/path/:
 
 - Copy `.htaccess` and `_auth/` under `/path`
 - In `.htaccess`, change `RewriteBase` to `/path`
-- In `_auth/authorize.php`, change `$AUTH_PATH` to `http://example.com/path/`
-- In `_auth/authorize.php`, add allowed email IDs to `$USERS`
+- In `_auth/config.php`, change `$AUTH_PATH` to `http://example.com/path/`
+- In `_auth/config.php`, add allowed email IDs to `functio allow()`
 
 How it works
 ------------
@@ -20,7 +20,7 @@ How it works
 2. `_auth/authorize.php` logs the user in via their Google ID.
     (This uses uses [HybridAuth](http://hybridauth.sourceforge.net/).
     You can use Twitter, Facebook, OpenID, etc instead of Google.)
-3. If the user is in the `$USERS` array you set up, it reads & shows the file.
+3. If the user is allowed by your `function allow()`, it reads & shows the file.
 
 This is tolerably efficient. On my laptop, static files are served at 2,500/s.
 With this module, it still managed 1,700/s.
