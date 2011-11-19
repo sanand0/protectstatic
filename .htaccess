@@ -2,8 +2,7 @@ RewriteEngine on
 
 # Change this to URL of this folder
 # Also set $AUTH_PATH in _auth/authorize.php points to {this URL}/_auth/
-# RewriteBase /path/to/directory
-RewriteBase /d/ext/protectstatic
+RewriteBase /path/to/directory
 
 RewriteRule ^_auth/ - [L]
 RewriteRule ^(.*)$ _auth/authorize.php?file=$1 [L]
