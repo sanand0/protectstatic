@@ -14,7 +14,8 @@ if (is_dir($filepath)) {
 # You may want to redirect to a standard 404 page.
 if (!is_file($filepath)) {
 	header("HTTP/1.1 404 Not Found");
-	die(eval(file_get_contents('404.html')));
+	include '404.php';
+	die;
 }
 
 # Get its MIME type. Wrote it by hand because:
@@ -243,7 +244,8 @@ $email = $profile->email;
 if (!allow($email, $path)) {
 	# Print an eror message for unauthorised users
 	header("HTTP/1.1 401 Not Authorised");
-	die(eval(file_get_contents('401.html')));
+	include '401.php';
+	die;
 }
 
 # Serve the file with the right Content-type and Expires

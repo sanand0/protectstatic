@@ -11,8 +11,9 @@ To restrict access a folder located at http://example.com/path/:
 
 - Copy `.htaccess` and `_auth/` under `/path`
 - In `.htaccess`, change `RewriteBase` to `/path`
-- In `_auth/config.php`, change `$AUTH_PATH` to `http://example.com/path/`
-- In `_auth/config.php`, add allowed email IDs to `functio allow()`
+- In `_auth/`, copy `config.sample.php` to `config.php`, and
+    - change `$AUTH_PATH` to `http://example.com/path/`
+    - add allowed email IDs to `function allow()`
 
 How it works
 ------------
@@ -33,4 +34,4 @@ Alternatives
 Licenses
 --------
 ProtectStatic is released under dual licence MIT and GPL.
-Same as [HybridAuth licenes](http://hybridauth.sourceforge.net/licenses.html).
+Same as [HybridAuth licences](http://hybridauth.sourceforge.net/licenses.html).
