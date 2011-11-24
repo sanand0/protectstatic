@@ -250,7 +250,22 @@ if (!allow($email, $path)) {
 
 # Serve the file with the right Content-type and Expires
 header("Content-type: $mime");
-header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + $expires));
+$now = time();
+header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', $now + $expires));
 readfile($filepath);
+
+# Log the request
+if (isset($LOGGING)) {
+	$datetime = gmdate('Y-M-d H:i:s', $now);
+	$yyyymmdd = gmdate('Y-M-d', $now);
+	$log_file = "log/auth-$yyyymmdd.csv";
+	$log_message = "$datetime,$email,$path\n";
+
+	# append($log_file, $log_message);
+	$handle = fopen($log_file, 'a');
+	if ($handle) {
+		fwrite($handle, $log_message);
+	}
+}
 
 ?>

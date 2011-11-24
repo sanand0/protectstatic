@@ -15,4 +15,8 @@ function allow($email, $path) {
 # If someone accesses /path/, what file should we serve?
 $DIRECTORY_INDEX = "index.html";
 
+# To turn on logging, uncomment the below.
+# Log files are created in _auth/log/auth-yyyy-mm-dd.csv
+# $LOGGING = 1;
+
 ?>
