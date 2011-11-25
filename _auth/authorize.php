@@ -251,6 +251,8 @@ if (!allow($email, $path)) {
 # Serve the file with the right Content-type and Expires
 header("Content-type: $mime");
 $now = time();
+$last_modified_time = filemtime($filepath);
+header("Last-Modified: ".gmdate("D, d M Y H:i:s", $last_modified_time)." GMT");
 header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', $now + $expires));
 readfile($filepath);
 
